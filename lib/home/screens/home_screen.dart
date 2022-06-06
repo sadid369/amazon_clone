@@ -2,6 +2,9 @@
 
 import 'package:amazon_clone/constants/global_variables.dart';
 import 'package:amazon_clone/home/widgets/address_box.dart';
+import 'package:amazon_clone/home/widgets/carousel_image.dart';
+import 'package:amazon_clone/home/widgets/deal_of_day.dart';
+import 'package:amazon_clone/home/widgets/top_categeries.dart';
 
 import 'package:flutter/material.dart';
 
@@ -94,14 +97,86 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ),
-        body: Column(
-          // ignore: prefer_const_literals_to_create_immutables
-          children: [
-            AddressBox(),
-            SizedBox(
-              height: 10,
-            ),
-          ],
+        body: SingleChildScrollView(
+          child: Column(
+            // ignore: prefer_const_literals_to_create_immutables
+            children: [
+              AddressBox(),
+              SizedBox(
+                height: 10,
+              ),
+              TopCategories(),
+              SizedBox(
+                height: 10,
+              ),
+              CarouselImage(),
+              DealOfDay(),
+              Image.network(
+                "https://images.unsplash.com/photo-1654462809274-60a8391fd945?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxMHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=60",
+                height: 235,
+                fit: BoxFit.fitHeight,
+              ),
+              Container(
+                alignment: Alignment.topLeft,
+                padding: EdgeInsets.only(left: 15),
+                child: Text(
+                  "\$100",
+                  style: TextStyle(fontSize: 18),
+                ),
+              ),
+              Container(
+                alignment: Alignment.topLeft,
+                padding: EdgeInsets.only(left: 15, top: 5, right: 40),
+                child: Text(
+                  "Sadid",
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Image.network(
+                      "https://images.unsplash.com/photo-1654258541494-8a4bc5035de6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
+                      fit: BoxFit.fitWidth,
+                      width: 100,
+                      height: 100,
+                    ),
+                    Image.network(
+                      "https://images.unsplash.com/photo-1654258541494-8a4bc5035de6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
+                      fit: BoxFit.fitWidth,
+                      width: 100,
+                      height: 100,
+                    ),
+                    Image.network(
+                      "https://images.unsplash.com/photo-1654258541494-8a4bc5035de6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
+                      fit: BoxFit.fitWidth,
+                      width: 100,
+                      height: 100,
+                    ),
+                    Image.network(
+                      "https://images.unsplash.com/photo-1654258541494-8a4bc5035de6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
+                      fit: BoxFit.fitWidth,
+                      width: 100,
+                      height: 100,
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.symmetric(
+                  vertical: 15,
+                ).copyWith(left: 15),
+                alignment: Alignment.topLeft,
+                child: Text(
+                  "See all Deals",
+                  style: TextStyle(color: Colors.cyan[800]),
+                ),
+              )
+            ],
+          ),
         ));
   }
 }
