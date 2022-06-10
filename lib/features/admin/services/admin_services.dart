@@ -14,7 +14,7 @@ class AdminServices {
   void sellProduct({
     required BuildContext context,
     required String name,
-    required String descriptions,
+    required String description,
     required double price,
     required double quantity,
     required String category,
@@ -26,13 +26,13 @@ class AdminServices {
       List<String> imageUrl = [];
       for (var i = 0; i < images.length; i++) {
         CloudinaryResponse res = await cloudinary.uploadFile(
-          CloudinaryFile.fromFile(images[1].path, folder: name),
+          CloudinaryFile.fromFile(images[i].path, folder: name),
         );
         imageUrl.add(res.secureUrl);
       }
       Product product = Product(
         name: name,
-        descriptions: descriptions,
+        description: description,
         quantity: quantity,
         images: imageUrl,
         category: category,
@@ -53,6 +53,7 @@ class AdminServices {
           });
     } catch (e) {
       showSnackBar(context, e.toString());
+      print(e.toString());
     }
   }
 }

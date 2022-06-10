@@ -5,14 +5,14 @@ const Product = require("../models/product");
 // Add Product
 adminRouter.post("/admin/add-product", admin, async (req, res) => {
   try {
-    const { name, descriptions, images, quantity, price, category } = req.body;
+    const { name, description, quantity, images, category, price } = req.body;
     let product = new Product({
       name,
-      descriptions,
-      images,
+      description,
       quantity,
-      price,
+      images,
       category,
+      price,
     });
     product = await product.save();
     res.json(product);

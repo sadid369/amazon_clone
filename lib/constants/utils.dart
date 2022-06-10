@@ -26,6 +26,7 @@ Future<List<File>> pickImages() async {
     }
   } catch (e) {
     debugPrint(e.toString());
+    print("Util.dart file: pickImages : $e");
   }
   return images;
 }

@@ -50,7 +50,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
       adminServices.sellProduct(
           context: context,
           name: productNameController.text,
-          descriptions: descriptionController.text,
+          description: descriptionController.text,
           price: double.parse(priceController.text),
           quantity: double.parse(quantityController.text),
           category: category,
