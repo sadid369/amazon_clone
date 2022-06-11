@@ -13,8 +13,8 @@ const DB =
 
 //middleware
 app.use(express.json());
-app.use(authRouter);
 app.use(adminRouter);
+app.use(authRouter);
 
 //Connections
 mongoose

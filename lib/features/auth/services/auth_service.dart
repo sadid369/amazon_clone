@@ -83,6 +83,7 @@ class AuthService {
                 context, BottomBar.routeName, (route) => false);
           });
     } catch (e) {
+      print("AuthService.signInMethos: $e");
       showSnackBar(context, e.toString());
     }
   }
