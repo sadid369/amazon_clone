@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:amazon_clone/constants/global_variables.dart';
+import 'package:amazon_clone/features/search/screens/search_screen.dart';
 import 'package:amazon_clone/home/widgets/address_box.dart';
 import 'package:amazon_clone/home/widgets/carousel_image.dart';
 import 'package:amazon_clone/home/widgets/deal_of_day.dart';
@@ -17,6 +18,10 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  void navigateToSearchScreen(String query) {
+    Navigator.pushNamed(context, SearchScreen.routeName, arguments: query);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,6 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       borderRadius: BorderRadius.circular(7),
                       elevation: 1,
                       child: TextFormField(
+                        onFieldSubmitted: navigateToSearchScreen,
                         decoration: InputDecoration(
                           prefixIcon: InkWell(
                             onTap: () {},
