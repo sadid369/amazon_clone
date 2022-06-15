@@ -2,6 +2,7 @@
 
 import 'package:amazon_clone/common/widgets/custom_button.dart';
 import 'package:amazon_clone/common/widgets/stars.dart';
+import 'package:amazon_clone/features/product_details/services/product_details_services.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
@@ -23,8 +24,15 @@ class ProductDetailScreen extends StatefulWidget {
 }
 
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
+  final ProductDetailsServices productDetailsServices =
+      ProductDetailsServices();
   void navigateToSearchScreen(String query) {
     Navigator.pushNamed(context, SearchScreen.routeName, arguments: query);
+  }
+
+  @override
+  void initState() {
+    super.initState();
   }
 
   @override
@@ -138,7 +146,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               return Builder(builder: (BuildContext context) {
                 return Image.network(
                   i,
-                  fit: BoxFit.cover,
+                  fit: BoxFit.contain,
                   height: 200,
                 );
               });
@@ -219,7 +227,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
             padding: const EdgeInsets.all(8.0),
             child: RatingBar.builder(
                 initialRating: 0,
-                maxRating: 1,
+                minRating: 1,
                 direction: Axis.horizontal,
                 allowHalfRating: true,
                 itemCount: 5,
@@ -228,7 +236,12 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       Icons.star,
                       color: GlobalVariables.secondaryColor,
                     ),
-                onRatingUpdate: (rating) {}),
+                onRatingUpdate: (rating) {
+                  productDetailsServices.rateProduct(
+                      context: context,
+                      product: widget.product,
+                      rating: rating);
+                }),
           )
         ],
       )),
