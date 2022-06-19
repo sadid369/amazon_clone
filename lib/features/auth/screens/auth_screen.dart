@@ -90,39 +90,40 @@ class _AuthScreenState extends State<AuthScreen> {
                 padding: EdgeInsets.all(8),
                 color: GlobalVariables.backgroundColor,
                 child: Form(
-                    key: _signUpFromKey,
-                    child: Column(
-                      children: [
-                        CustomTextField(
-                          controller: _nameController,
-                          hintText: "Name",
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        CustomTextField(
-                          controller: _emailController,
-                          hintText: "Email",
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        CustomTextField(
-                          controller: _passwordController,
-                          hintText: "Password",
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        CustomButton(
-                            text: "Sign Up",
-                            onTap: () {
-                              if (_signUpFromKey.currentState!.validate()) {
-                                signUpUser();
-                              }
-                            })
-                      ],
-                    )),
+                  key: _signUpFromKey,
+                  child: Column(
+                    children: [
+                      CustomTextField(
+                        controller: _nameController,
+                        hintText: "Name",
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      CustomTextField(
+                        controller: _emailController,
+                        hintText: "Email",
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      CustomTextField(
+                        controller: _passwordController,
+                        hintText: "Password",
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      CustomButton(
+                          text: "Sign Up",
+                          onTap: () {
+                            if (_signUpFromKey.currentState!.validate()) {
+                              signUpUser();
+                            }
+                          })
+                    ],
+                  ),
+                ),
               ),
             ListTile(
               tileColor: _auth == Auth.Signin
