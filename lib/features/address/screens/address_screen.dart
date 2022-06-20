@@ -3,6 +3,8 @@
 import 'package:amazon_clone/common/widgets/custom_button.dart';
 import 'package:amazon_clone/common/widgets/custom_textfield.dart';
 import 'package:amazon_clone/constants/global_variables.dart';
+import 'package:amazon_clone/constants/utils.dart';
+import 'package:amazon_clone/features/address/services/address_services.dart';
 import 'package:amazon_clone/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:pay/pay.dart';
@@ -10,7 +12,8 @@ import 'package:provider/provider.dart';
 
 class AddressScreen extends StatefulWidget {
   static const String routeName = '/address';
-  AddressScreen({Key? key}) : super(key: key);
+  final String totalAmount;
+  AddressScreen({Key? key, required this.totalAmount}) : super(key: key);
 
   @override
   State<AddressScreen> createState() => _AddressScreenState();
@@ -22,7 +25,18 @@ class _AddressScreenState extends State<AddressScreen> {
   final TextEditingController pincodeController = TextEditingController();
   final TextEditingController cityController = TextEditingController();
   final _addressFromKey = GlobalKey<FormState>();
+  String addressToBeUsed = "";
   List<PaymentItem> paymentItems = [];
+  AddressServices addressServices = AddressServices();
+  @override
+  void initState() {
+    super.initState();
+    paymentItems.add(PaymentItem(
+        amount: widget.totalAmount,
+        label: "Total Amount",
+        status: PaymentItemStatus.final_price));
+  }
+
   @override
   void dispose() {
     super.dispose();
@@ -32,11 +46,44 @@ class _AddressScreenState extends State<AddressScreen> {
     cityController.dispose();
   }
 
-  void onApplePayResult(res) {}
+  void onGooglePayResult(res) {
+    if (Provider.of<UserProvider>(context, listen: false)
+        .user
+        .address
+        .isEmpty) {
+      addressServices.saveUserAddress(
+          context: context, address: addressToBeUsed);
+    }
+    addressServices.placeOrder(
+        context: context,
+        address: addressToBeUsed,
+        totalSum: double.parse(widget.totalAmount));
+  }
+
+  void payPressed(String addressFromProvider) {
+    addressToBeUsed = "";
+    bool isForm = flatBuildingController.text.isNotEmpty ||
+        areaController.text.isNotEmpty ||
+        pincodeController.text.isNotEmpty ||
+        cityController.text.isNotEmpty;
+    if (isForm) {
+      if (_addressFromKey.currentState!.validate()) {
+        addressToBeUsed =
+            "${flatBuildingController.text}, ${areaController.text}, ${cityController.text} - ${pincodeController.text}";
+      } else {
+        throw Exception("Please enter all the values!");
+      }
+    } else if (addressFromProvider.isNotEmpty) {
+      addressToBeUsed = addressFromProvider;
+    } else {
+      showSnackBar(context, "Error");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     // final address = context.watch<UserProvider>().user.address;
-    final address = "101 Faje Street";
+    final address = context.watch<UserProvider>().user.address;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(50),
@@ -121,12 +168,13 @@ class _AddressScreenState extends State<AddressScreen> {
                 ),
               ),
               GooglePayButton(
+                onPressed: () => payPressed(address),
                 height: 50,
                 width: double.infinity,
                 style: GooglePayButtonStyle.black,
                 type: GooglePayButtonType.buy,
                 paymentConfigurationAsset: 'gpay.json',
-                onPaymentResult: onApplePayResult,
+                onPaymentResult: onGooglePayResult,
                 paymentItems: paymentItems,
                 margin: EdgeInsets.only(top: 15),
                 loadingIndicator: Center(
