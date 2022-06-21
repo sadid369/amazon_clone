@@ -114,8 +114,7 @@ class _CartScreenState extends State<CartScreen> {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-          child: Column(
+      body: Column(
         children: [
           AddressBox(),
           CartSubtotal(),
@@ -137,14 +136,16 @@ class _CartScreenState extends State<CartScreen> {
           SizedBox(
             height: 5,
           ),
-          ListView.builder(
-              itemCount: user.cart.length,
-              shrinkWrap: true,
-              itemBuilder: (context, index) {
-                return CartProduct(index: index);
-              })
+          Expanded(
+            child: ListView.builder(
+                itemCount: user.cart.length,
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  return CartProduct(index: index);
+                }),
+          )
         ],
-      )),
+      ),
     );
   }
 }
