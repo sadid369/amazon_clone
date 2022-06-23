@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-String uri = 'http://amazon-clone-sadid.heroku.com';
+String uri = 'https://gentle-temple-82817.herokuapp.com';
 
 class GlobalVariables {
   // COLORS
