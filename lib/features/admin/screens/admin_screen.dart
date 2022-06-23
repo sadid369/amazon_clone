@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors_in_immutables, prefer_const_constructors
 
 import 'package:amazon_clone/constants/global_variables.dart';
+import 'package:amazon_clone/features/admin/screens/analtyics_screen.dart';
+import 'package:amazon_clone/features/admin/screens/orders_screen.dart';
 import 'package:amazon_clone/features/admin/screens/posts_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -15,15 +17,7 @@ class _AdminScreenState extends State<AdminScreen> {
   int _page = 0;
   double bottomBarWidth = 42;
   double bottomBarBorderWidth = 5;
-  List<Widget> pages = [
-    PostsScreen(),
-    Center(
-      child: Text("Analytics Page"),
-    ),
-    Center(
-      child: Text("Cart Page"),
-    ),
-  ];
+  List<Widget> pages = [PostsScreen(), AnalyticsScreen(), OrdersScreen()];
   void updatePage(int page) {
     setState(() {
       _page = page;

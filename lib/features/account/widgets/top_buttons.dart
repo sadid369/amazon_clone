@@ -1,16 +1,12 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:amazon_clone/features/account/services/account_services.dart';
 import 'package:amazon_clone/features/account/widgets/account_button.dart';
 import 'package:flutter/material.dart';
 
-class TopButtons extends StatefulWidget {
-  TopButtons({Key? key}) : super(key: key);
+class TopButtons extends StatelessWidget {
+  const TopButtons({Key? key}) : super(key: key);
 
-  @override
-  State<TopButtons> createState() => _TopButtonsState();
-}
-
-class _TopButtonsState extends State<TopButtons> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -34,7 +30,7 @@ class _TopButtonsState extends State<TopButtons> {
           children: [
             AccountButton(
               text: 'Log Out',
-              onTap: () {},
+              onTap: () => AccountServices().logout(context),
             ),
             AccountButton(
               text: 'Your Wish List',
